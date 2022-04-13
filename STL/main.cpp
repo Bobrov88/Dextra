@@ -18,6 +18,13 @@ int priority(char ops)
 	}
 }
 
+struct Data
+{
+	int number;
+	char symbol;
+	bool is_num;
+};
+
 
 int main()
 {
