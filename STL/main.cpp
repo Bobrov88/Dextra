@@ -47,8 +47,15 @@ int main()
 	cout << offset << "Введите выражение: "; cin >> expression;
 	cout << offset << "ОПЗ: ";
 	do
-	{//(expression[i] == '!')
-		if (((int)expression[i] > 47) && ((int)expression[i] < 58))
+	{	
+		if (expression[i] == '!')
+		{
+			element.input(0, '!', false);
+			Exit.push(element);
+			cout << Exit.top().symbol << " ";
+			i++;
+		}
+		else if (((int)expression[i] > 47) && ((int)expression[i] < 58))
 		{
 			element.input(expression[i], '+', true);
 			i++;
