@@ -3,6 +3,8 @@
 #include <string>
 using namespace std;
 
+#define offset "\t\t\t\t"
+
 int priority(char ops)
 {
 	switch (ops)
@@ -23,28 +25,18 @@ int main()
 	string expression;
 	stack<char> Exit;
 	stack<char> ops;
-	//ops.push(' ');
+	ops.push(' ');
 	int i = 0;
-	cout << "Введите выражение: "; cin >> expression;
+	cout << offset<< "Введите выражение: "; cin >> expression;
+	cout << offset << "ОПЗ: ";
 	do
 	{
+
 		if ((((int)expression[i] > 47) && ((int)expression[i] < 58)) || (expression[i] == '!'))
 		{
 			Exit.push(expression[i]);
 			cout << Exit.top();
 		}
-		else if (((expression[i]=='+')||(expression[i] == '-')||(expression[i] == '*')||(expression[i] == '/'))&&(!ops.empty()))
-		{
-
-			while (priority(ops.top()) > priority(expression[i]) && !ops.empty())
-			{
-				Exit.push(ops.top());
-				ops.pop();
-				cout << Exit.top();
-			}
-			Exit.push(expression[i]);
-			cout << Exit.top();
-			}
 		else if (expression[i] == ')')
 		{ 
 			while (ops.top() != '(')
@@ -55,8 +47,27 @@ int main()
 			}
 			ops.pop();
 		}
-		else ops.push(expression[i]);
+		else if (expression[i] == '(')	ops.push(expression[i]);
+		else {
+			if (priority(ops.top()) < priority(expression[i]))	ops.push(expression[i]);
+			else
+			{
+				while (priority(ops.top()) >= priority(expression[i]))
+				{
+					Exit.push(ops.top());
+					ops.pop();
+					cout << Exit.top();
+				}
+				ops.push(expression[i]);
+			}
+			}
 		i++;
 	} while (i < expression.length());
+	while (ops.top() != ' ')
+	{
+		Exit.push(ops.top());
+		ops.pop();
+		cout << Exit.top();
+	}
 	return 0;
-}
+}	
