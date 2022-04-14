@@ -1,6 +1,7 @@
 #include <iostream>
 #include <stack>
 #include <string>
+#include <math.h>
 using namespace std;
 
 #define offset "\t\t\t\t"
@@ -28,11 +29,25 @@ struct Data
 		char _symbol,
 		bool _is_num)
 	{
-		number = (int)_number-48;
+		number = (float)_number-48;
 		symbol = _symbol;
 		is_num = _is_num;
 	}
 };
+
+float operation(float a, float b, char op)
+{
+	switch (op)
+	{
+	case '+': return a + b;
+	case '-': return a - b;
+	case '*': return a * b;
+	case '/': return a / b;
+	case '^': return pow(a, b);
+	case '!': return a;
+	default: return 1;
+	}
+}
 
 
 int main()
@@ -40,6 +55,7 @@ int main()
 	setlocale(LC_ALL, "ru");
 	string expression;
 	stack<Data> Exit;
+	stack<Data> Reverse;
 	stack<char> ops;
 	Data element;
 	ops.push(' ');
@@ -109,5 +125,14 @@ int main()
 		ops.pop();
 		cout << Exit.top().symbol<<" ";
 	}
+	do
+	{
+		Reverse.push(Exit.top());
+		Exit.pop();
+	} while (!Exit.empty());
+	do
+	{
+
+	} while (Reverse.size() != 1);
 	return 0;
 }
