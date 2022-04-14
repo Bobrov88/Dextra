@@ -58,17 +58,18 @@ int main()
 	stack<Data> Reverse;
 	stack<char> ops;
 	Data element;
+	float Temp;
 	ops.push(' ');
 	int i = 0;
 	cout << offset << "Введите выражение: "; cin >> expression;
 	cout << offset << "ОПЗ: ";
 	do
-	{	
+	{
 		if (expression[i] == '!')
 		{
 			element.input(0, '!', false);
 			Exit.push(element);
-			cout << Exit.top().symbol << " ";
+			cout << Exit.top().symbol<<" ";
 			i++;
 		}
 		else if (((int)expression[i] > 47) && ((int)expression[i] < 58))
@@ -77,7 +78,7 @@ int main()
 			i++;
 			while ((int)expression[i] > 47 && (int)expression[i] < 58)
 			{
-				element.number = element.number * 10 + (int)expression[i]-48;
+				element.number = element.number * 10 + (int)expression[i] - 48;
 				i++;
 			}
 			Exit.push(element);
@@ -123,16 +124,27 @@ int main()
 		element.input(0, ops.top(), false);
 		Exit.push(element);
 		ops.pop();
-		cout << Exit.top().symbol<<" ";
+		cout << Exit.top().symbol;
 	}
+	cout << endl;
 	do
 	{
 		Reverse.push(Exit.top());
 		Exit.pop();
 	} while (!Exit.empty());
+
 	do
 	{
-
-	} while (Reverse.size() != 1);
+		while (Reverse.top().is_num)
+		{
+			Exit.push(Reverse.top());
+			Reverse.pop();
+		}
+		Temp = Exit.top().number;
+		Exit.pop();
+		Exit.top().number = operation(Exit.top().number, Temp, Reverse.top().symbol);
+		Reverse.pop();
+	} while (!Reverse.empty());
+	cout << "\n" << offset << "Ответ: " << Exit.top().number;
 	return 0;
 }
