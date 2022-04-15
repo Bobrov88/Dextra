@@ -35,6 +35,18 @@ struct Data
 	}
 };
 
+float factorial(float number)
+{
+	if (number == 0 || number == 1) return 1;
+	int a = (int)number;
+	do
+	{
+		a--;
+		number *= a;
+	} while (a != 1);
+	return number;
+}
+
 float operation(float a, float b, char op)
 {
 	switch (op)
@@ -44,7 +56,7 @@ float operation(float a, float b, char op)
 	case '*': return a * b;
 	case '/': return a / b;
 	case '^': return pow(a, b);
-//	case '!': return factorial(a);
+	case '!': return factorial(a);
 	default: return 1;
 	}
 }
@@ -62,14 +74,14 @@ int main()
 	ops.push(' ');
 	int i = 0, pow10 = 1;
 	cout << offset << "Введите выражение: "; cin >> expression;
-	//cout << offset << "ОПЗ: ";
+	cout << offset << "ОПЗ: ";
 	do
 	{
 		if (expression[i] == '!')
 		{
 			element.input(0, '!', false);
 			Exit.push(element);
-			//	cout << Exit.top().symbol << " ";
+			cout << Exit.top().symbol << " ";
 			i++;
 		}
 		else if (((int)expression[i] > 47) && ((int)expression[i] < 58))
@@ -82,18 +94,18 @@ int main()
 				i++;
 			}
 			Exit.push(element);
-			//	cout << Exit.top().number << " ";
+			cout << Exit.top().number << " ";
 			element.number = 0;
 		}
 		else if ((expression[i] == '.') || (expression[i] == ','))
 		{
-			//cout << expression[i];
+			cout << expression[i];
 			i++;
 			pow10 = 1;
 			while (((int)expression[i] > 47) && ((int)expression[i] < 58))
 			{
 				Exit.top().number = Exit.top().number + ((int)expression[i] - 48) / pow(10, pow10);
-				//		cout << expression[i];
+				cout << expression[i];
 				pow10++;
 				i++;
 			}
@@ -105,7 +117,7 @@ int main()
 				element.input(0, ops.top(), false);
 				Exit.push(element);
 				ops.pop();
-				//		cout << Exit.top().symbol << " ";
+				cout << Exit.top().symbol << " ";
 			}
 			ops.pop();
 			i++;
@@ -125,7 +137,7 @@ int main()
 					element.input(0, ops.top(), false);
 					Exit.push(element);
 					ops.pop();
-					//			cout << Exit.top().symbol << " ";
+					cout << Exit.top().symbol << " ";
 				}
 				ops.push(expression[i]);
 			}
@@ -137,9 +149,9 @@ int main()
 		element.input(0, ops.top(), false);
 		Exit.push(element);
 		ops.pop();
-		//		cout << Exit.top().symbol;
+		cout << Exit.top().symbol;
 	}
-//	cout << endl;
+	//	cout << endl;
 	do
 	{
 		Reverse.push(Exit.top());
@@ -159,6 +171,7 @@ int main()
 		if (Reverse.top().symbol == '!')
 		{
 			Exit.top().number = operation(Exit.top().number, 1, '!');
+			Reverse.pop();
 		}
 		else
 		{
@@ -168,6 +181,6 @@ int main()
 			Reverse.pop();
 		}
 	} while (!Reverse.empty());
-	cout << offset << "Ответ: " << Exit.top().number;
+	cout << "\n" << offset << "Ответ: " << Exit.top().number;
 	return 0;
 }
