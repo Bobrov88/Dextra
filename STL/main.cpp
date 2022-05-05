@@ -2,9 +2,12 @@
 #include <stack>
 #include <string>
 #include <math.h>
+#include <fstream>
 using namespace std;
 
 #define offset "\t\t\t\t"
+fstream file;
+
 
 int priority(char ops)
 {
@@ -54,7 +57,19 @@ float operation(float a, float b, char op)
 	case '+': return a + b;
 	case '-': return a - b;
 	case '*': return a * b;
-	case '/': return a / b;
+	case '/':
+		//	{
+			//..	try
+				//{
+		return a / b;
+		//	}
+			//catch (const std::exception&div)
+			//{
+				//cout << offset << "\nDivision by 0";
+				//file << offset << "\nDivision by ZERO! Programm Stopped";
+				//break;
+			//}
+	//	}
 	case '^': return pow(a, b);
 	case '!': return factorial(a);
 	default: return 1;
@@ -65,6 +80,19 @@ float operation(float a, float b, char op)
 int main()
 {
 	setlocale(LC_ALL, "ru");
+	string path = "data.txt";
+	//fstream file;
+	file.exceptions(fstream::badbit | fstream::failbit);
+	try
+	{
+		cout << "File opening..." << endl;
+		file.open(path, fstream::in);
+	}
+	catch (const fstream::failure& ex)
+	{
+		cout << ex.what() << "\n" << ex.code() << endl;
+		return 0;
+	}
 	string expression;
 	stack<Data> Exit;
 	stack<Data> Reverse;
@@ -73,15 +101,18 @@ int main()
 	float Temp;
 	ops.push(' ');
 	int i = 0, pow10 = 1;
-	cout << offset << "Введите выражение: "; cin >> expression;
-	cout << offset << "ОПЗ: ";
+	//cout << offset << "Введите выражение: ";
+	file >> expression;
+	file.close();
+	file.open(path, fstream::out | fstream::app);
+	file << "\nОПЗ: ";
 	do
 	{
 		if (expression[i] == '!')
 		{
 			element.input(0, '!', false);
 			Exit.push(element);
-			cout << Exit.top().symbol << " ";
+			file << Exit.top().symbol << " ";
 			i++;
 		}
 		else if (((int)expression[i] > 47) && ((int)expression[i] < 58))
@@ -94,18 +125,18 @@ int main()
 				i++;
 			}
 			Exit.push(element);
-			cout << Exit.top().number << " ";
+			file << Exit.top().number << " ";
 			element.number = 0;
 		}
 		else if ((expression[i] == '.') || (expression[i] == ','))
 		{
-			cout << expression[i];
+			file << expression[i];
 			i++;
 			pow10 = 1;
 			while (((int)expression[i] > 47) && ((int)expression[i] < 58))
 			{
 				Exit.top().number = Exit.top().number + ((int)expression[i] - 48) / pow(10, pow10);
-				cout << expression[i];
+				file << expression[i];
 				pow10++;
 				i++;
 			}
@@ -117,7 +148,7 @@ int main()
 				element.input(0, ops.top(), false);
 				Exit.push(element);
 				ops.pop();
-				cout << Exit.top().symbol << " ";
+				file << Exit.top().symbol << " ";
 			}
 			ops.pop();
 			i++;
@@ -137,7 +168,7 @@ int main()
 					element.input(0, ops.top(), false);
 					Exit.push(element);
 					ops.pop();
-					cout << Exit.top().symbol << " ";
+					file << Exit.top().symbol << " ";
 				}
 				ops.push(expression[i]);
 			}
@@ -149,7 +180,7 @@ int main()
 		element.input(0, ops.top(), false);
 		Exit.push(element);
 		ops.pop();
-		cout << Exit.top().symbol;
+		file << Exit.top().symbol;
 	}
 	//	cout << endl;
 	do
@@ -181,6 +212,8 @@ int main()
 			Reverse.pop();
 		}
 	} while (!Reverse.empty());
-	cout << "\n" << offset << "Ответ: " << Exit.top().number;
+	file << "\n" << offset << "Ответ: " << Exit.top().number;
+	cout << "Look into the file...";
+	file.close();
 	return 0;
 }
