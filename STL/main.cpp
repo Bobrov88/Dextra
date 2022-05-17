@@ -57,19 +57,11 @@ float operation(float a, float b, char op)
 	case '+': return a + b;
 	case '-': return a - b;
 	case '*': return a * b;
-	case '/':
-		//	{
-			//..	try
-				//{
-		return a / b;
-		//	}
-			//catch (const std::exception&div)
-			//{
-				//cout << offset << "\nDivision by 0";
-				//file << offset << "\nDivision by ZERO! Programm Stopped";
-				//break;
-			//}
-	//	}
+	case '/': 
+	{
+		if (b != 0) return a / b;
+		throw exception("Division by ZERO!");
+	}
 	case '^': return pow(a, b);
 	case '!': return factorial(a);
 	default: return 1;
@@ -105,7 +97,7 @@ int main()
 	file >> expression;
 	file.close();
 	file.open(path, fstream::out | fstream::app);
-	file << "\nÎÏÇ: ";
+	file << "\n BPN: ";
 	do
 	{
 		if (expression[i] == '!')
@@ -208,11 +200,21 @@ int main()
 		{
 			Temp = Exit.top().number;
 			Exit.pop();
-			Exit.top().number = operation(Exit.top().number, Temp, Reverse.top().symbol);
+			try
+			{
+				Exit.top().number = operation(Exit.top().number, Temp, Reverse.top().symbol);
+			}
+			catch (const exception &ex)
+			{
+				cout << ex.what() << endl;
+				file << ex.what() <<endl;
+				file.close();
+				return 0;
+			}
 			Reverse.pop();
 		}
 	} while (!Reverse.empty());
-	file << "\n" << offset << "Îòâåò: " << Exit.top().number;
+	file << "\n" << offset << "Result: " << Exit.top().number;
 	cout << "Look into the file...";
 	file.close();
 	return 0;
