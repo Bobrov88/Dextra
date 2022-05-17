@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.32112.339
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "STL", "STL\STL.vcxproj", "{E5528719-30B3-47A4-8C30-B14BA1BACBA5}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "VECTOR", "VECTOR\VECTOR.vcxproj", "{58D8B4DD-5966-45D2-B509-19E1D5706E69}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -13,14 +13,14 @@ Global
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{E5528719-30B3-47A4-8C30-B14BA1BACBA5}.Debug|x64.ActiveCfg = Debug|x64
-		{E5528719-30B3-47A4-8C30-B14BA1BACBA5}.Debug|x64.Build.0 = Debug|x64
-		{E5528719-30B3-47A4-8C30-B14BA1BACBA5}.Debug|x86.ActiveCfg = Debug|Win32
-		{E5528719-30B3-47A4-8C30-B14BA1BACBA5}.Debug|x86.Build.0 = Debug|Win32
-		{E5528719-30B3-47A4-8C30-B14BA1BACBA5}.Release|x64.ActiveCfg = Release|x64
-		{E5528719-30B3-47A4-8C30-B14BA1BACBA5}.Release|x64.Build.0 = Release|x64
-		{E5528719-30B3-47A4-8C30-B14BA1BACBA5}.Release|x86.ActiveCfg = Release|Win32
-		{E5528719-30B3-47A4-8C30-B14BA1BACBA5}.Release|x86.Build.0 = Release|Win32
+		{58D8B4DD-5966-45D2-B509-19E1D5706E69}.Debug|x64.ActiveCfg = Debug|x64
+		{58D8B4DD-5966-45D2-B509-19E1D5706E69}.Debug|x64.Build.0 = Debug|x64
+		{58D8B4DD-5966-45D2-B509-19E1D5706E69}.Debug|x86.ActiveCfg = Debug|Win32
+		{58D8B4DD-5966-45D2-B509-19E1D5706E69}.Debug|x86.Build.0 = Debug|Win32
+		{58D8B4DD-5966-45D2-B509-19E1D5706E69}.Release|x64.ActiveCfg = Release|x64
+		{58D8B4DD-5966-45D2-B509-19E1D5706E69}.Release|x64.Build.0 = Release|x64
+		{58D8B4DD-5966-45D2-B509-19E1D5706E69}.Release|x86.ActiveCfg = Release|Win32
+		{58D8B4DD-5966-45D2-B509-19E1D5706E69}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
